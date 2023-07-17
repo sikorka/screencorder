@@ -1,4 +1,4 @@
-package com.github.sikorka.util;
+package com.github.sikorka.util.screen;
 
 import org.monte.media.av.Format;
 import org.monte.media.math.Rational;
@@ -7,15 +7,29 @@ import org.monte.media.screenrecorder.ScreenRecorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
+import static org.awaitility.Awaitility.await;
 import static org.monte.media.av.FormatKeys.*;
 import static org.monte.media.av.codec.video.VideoFormatKeys.*;
 
 public class Screencorder {
+    ScreenRecorder screenRecorder;
+    String movieFolder;
 
-    private Screencorder() {}
+    public Screencorder() {
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            movieFolder = System.getProperty("user.home") + File.separator + "Videos";
+        } else {
+            movieFolder = System.getProperty("user.home") + File.separator + "Movies";
+        }
+    }
 
-    public static ScreenRecorder startRecording(String movieFolder) throws IOException, AWTException {
+    public Screencorder(String movieFolder) {
+        this.movieFolder = movieFolder;
+    }
+
+    public ScreenRecorder startRecording() throws IOException, AWTException {
 
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
@@ -35,7 +49,7 @@ public class Screencorder {
                 EncodingKey, ScreenRecorder.ENCODING_BLACK_CURSOR,
                 FrameRateKey, Rational.valueOf(30));
 
-        ScreenRecorder screenRecorder = new ScreenRecorder(gc, null,
+        screenRecorder = new ScreenRecorder(gc, null,
                 fileFormat, screenFormat, mouseFormat,
                 null, new File(movieFolder));
 
@@ -45,7 +59,7 @@ public class Screencorder {
     }
 
     /** Trying another way of recording. Still same error. */
-    public static ScreenRecorder startRecording1(String movieFolder) throws IOException, AWTException {
+    public ScreenRecorder startRecordingMoreDefined() throws IOException, AWTException {
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getDefaultScreenDevice()
@@ -60,8 +74,8 @@ public class Screencorder {
                 new Format(MediaTypeKey, MediaType.VIDEO,
                         EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
                         CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
-                        WidthKey, Double.valueOf(gc.getBounds().getWidth()).intValue(), //outputDimension.width,
-                        HeightKey, Double.valueOf(gc.getBounds().getHeight()).intValue(), //outputDimension.height,
+                        WidthKey, gc.getBounds().getWidth(),
+                        HeightKey, gc.getBounds().getHeight(),
                         DepthKey, 24, //bitDepth,
                         FrameRateKey, Rational.valueOf(15),
                         QualityKey, 1.0f,
@@ -84,7 +98,19 @@ public class Screencorder {
         return screenRecorder;
     }
 
-    public static void stopRecording(ScreenRecorder screenRecorder) throws IOException {
+    public void stopRecording() throws IOException {
         screenRecorder.stop();
+    }
+
+    public static void record5seconds() throws IOException, AWTException {
+        Screencorder recorder = new Screencorder();
+
+        recorder.startRecordingMoreDefined();
+        await().atMost(Duration.ofSeconds(5));
+        recorder.stopRecording();
+    }
+
+    public static void main(String[] args) throws IOException, AWTException {
+        record5seconds();
     }
 }
