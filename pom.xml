@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>screencord</module>
+        <module>com.github.sikorka.util.screen</module>
     </modules>
 
     <properties>

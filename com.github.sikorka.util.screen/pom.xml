@@ -11,7 +11,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>screencord</artifactId>
+    <artifactId>com.github.sikorka.util.screen</artifactId>
     <packaging>jar</packaging>
 
 </project>

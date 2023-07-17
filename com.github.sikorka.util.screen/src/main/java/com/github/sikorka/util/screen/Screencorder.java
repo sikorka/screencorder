@@ -65,7 +65,7 @@ public class Screencorder {
                 .getDefaultScreenDevice()
                 .getDefaultConfiguration();
 
-        ScreenRecorder screenRecorder = new ScreenRecorder(gc, gc.getBounds(),
+        screenRecorder = new ScreenRecorder(gc, gc.getBounds(),
                 // the file format:
                 new Format(MediaTypeKey, MediaType.FILE,
                         MimeTypeKey, MIME_AVI),
