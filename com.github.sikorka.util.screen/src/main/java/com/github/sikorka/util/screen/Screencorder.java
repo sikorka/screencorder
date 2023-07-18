@@ -7,7 +7,6 @@ import org.monte.media.screenrecorder.ScreenRecorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 
 import static org.awaitility.Awaitility.await;
 import static org.monte.media.av.FormatKeys.*;
@@ -29,7 +28,7 @@ public class Screencorder {
         this.movieFolder = movieFolder;
     }
 
-    public void startRecording() throws IOException, AWTException {
+    public void start() throws IOException, AWTException {
 
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
@@ -54,22 +53,23 @@ public class Screencorder {
                 null, new File(movieFolder));
 
         screenRecorder.start();
-
     }
 
-    public void stopRecording() throws IOException {
+    public void stop() throws IOException {
         screenRecorder.stop();
     }
 
-    public static void record5seconds() throws IOException, AWTException {
+    public static void recordFewSeconds() throws IOException, AWTException {
         Screencorder recorder = new Screencorder();
+        PretendToBeBusyForFewSeconds busy = new PretendToBeBusyForFewSeconds();
 
-        recorder.startRecording();
-        await().atMost(Duration.ofSeconds(5));
-        recorder.stopRecording();
+        recorder.start();
+        busy.start();
+        await().until(busy::isItDoneYet);
+        recorder.stop();
     }
 
     public static void main(String[] args) throws IOException, AWTException {
-        record5seconds();
+        recordFewSeconds();
     }
 }

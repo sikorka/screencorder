@@ -6,6 +6,8 @@ module com.github.sikorka.util.screen {
     requires org.monte.media.swing;
     requires org.monte.media.screenrecorder;
     requires awaitility;
+    requires lombok;
+    requires log4j;
 
     exports com.github.sikorka.util.screen;
 }

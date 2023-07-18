@@ -6,6 +6,6 @@ class ScreenRecordingTest {
 
     @Test
     void recordingTest() throws Exception {
-        Screencorder.record5seconds();
+        Screencorder.recordFewSeconds();
     }
 }
