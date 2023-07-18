@@ -13,7 +13,7 @@ Run with java 17 or 20. For example on Mac:
 
     The code is run, the movie is recorded. 
 
-2. Or run Main method using maven: 
+2. Or run `main()` method using maven: 
     
        cd com.github.sikorka.util.screen
        mvn compile exec:java
@@ -24,8 +24,8 @@ Run with java 17 or 20. For example on Mac:
           * Required filename-based automodules detected: [awaitility-4.2.0.jar, log4j-1.2.17.jar]. Please don't publish this project to a public artifact repository! *
           **************************************************************************************************************************************************************
 
-   3. Using tests: 
+3. Using tests: 
 
-          mvn clean test
+       mvn clean test
 
-      Same error like above. 
+   Same error like above. 
