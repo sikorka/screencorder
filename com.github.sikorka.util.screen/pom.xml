@@ -14,4 +14,67 @@
     <artifactId>com.github.sikorka.util.screen</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ch.randelshofer</groupId>
+            <artifactId>org.monte.media.screenrecorder</artifactId>
+            <version>17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.randelshofer</groupId>
+            <artifactId>org.monte.media</artifactId>
+            <version>17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.randelshofer</groupId>
+            <artifactId>org.monte.media.swing</artifactId>
+            <version>17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>com.github.sikorka.util.screen.Screencorder</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

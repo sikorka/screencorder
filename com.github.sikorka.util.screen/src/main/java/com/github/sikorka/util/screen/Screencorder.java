@@ -29,7 +29,7 @@ public class Screencorder {
         this.movieFolder = movieFolder;
     }
 
-    public ScreenRecorder startRecording() throws IOException, AWTException {
+    public void startRecording() throws IOException, AWTException {
 
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
@@ -55,47 +55,6 @@ public class Screencorder {
 
         screenRecorder.start();
 
-        return screenRecorder;
-    }
-
-    /** Trying another way of recording. Still same error. */
-    public ScreenRecorder startRecordingMoreDefined() throws IOException, AWTException {
-        GraphicsConfiguration gc = GraphicsEnvironment
-                .getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice()
-                .getDefaultConfiguration();
-
-        screenRecorder = new ScreenRecorder(gc, gc.getBounds(),
-                // the file format:
-                new Format(MediaTypeKey, MediaType.FILE,
-                        MimeTypeKey, MIME_AVI),
-                //
-                // the output format for screen capture:
-                new Format(MediaTypeKey, MediaType.VIDEO,
-                        EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
-                        CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
-                        WidthKey, gc.getBounds().getWidth(),
-                        HeightKey, gc.getBounds().getHeight(),
-                        DepthKey, 24, //bitDepth,
-                        FrameRateKey, Rational.valueOf(15),
-                        QualityKey, 1.0f,
-                        KeyFrameIntervalKey, (15 * 60) // one keyframe per minute is enough
-                ),
-                //
-                // the output format for mouse capture:
-                new Format(MediaTypeKey, MediaType.VIDEO,
-                        EncodingKey, ScreenRecorder.ENCODING_BLACK_CURSOR,
-                        FrameRateKey, Rational.valueOf(30)),
-                //
-                // the output format for audio capture:
-                null,
-                //
-                // the storage location of the movie
-                new File(movieFolder));
-
-        screenRecorder.start();
-
-        return screenRecorder;
     }
 
     public void stopRecording() throws IOException {
@@ -105,7 +64,7 @@ public class Screencorder {
     public static void record5seconds() throws IOException, AWTException {
         Screencorder recorder = new Screencorder();
 
-        recorder.startRecordingMoreDefined();
+        recorder.startRecording();
         await().atMost(Duration.ofSeconds(5));
         recorder.stopRecording();
     }
