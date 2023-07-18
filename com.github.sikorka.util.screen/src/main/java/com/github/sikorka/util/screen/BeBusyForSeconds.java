@@ -33,7 +33,7 @@ public class BeBusyForSeconds {
         });
     }
 
-    boolean isItDoneYet() {
+    boolean isDone() {
         if (done) {
             executor.shutdownNow();
         }

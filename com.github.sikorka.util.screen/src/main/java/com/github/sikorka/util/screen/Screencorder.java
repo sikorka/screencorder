@@ -1,5 +1,6 @@
 package com.github.sikorka.util.screen;
 
+import org.awaitility.Awaitility;
 import org.monte.media.av.Format;
 import org.monte.media.math.Rational;
 import org.monte.media.screenrecorder.ScreenRecorder;
@@ -7,6 +8,7 @@ import org.monte.media.screenrecorder.ScreenRecorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 import static org.awaitility.Awaitility.await;
 import static org.monte.media.av.FormatKeys.*;
@@ -22,10 +24,8 @@ public class Screencorder {
         } else {
             movieFolder = System.getProperty("user.home") + File.separator + "Movies";
         }
-    }
 
-    public Screencorder(String movieFolder) {
-        this.movieFolder = movieFolder;
+        Awaitility.setDefaultTimeout(Duration.ofMinutes(1));
     }
 
     public void start() throws IOException, AWTException {
@@ -59,19 +59,19 @@ public class Screencorder {
         screenRecorder.stop();
     }
 
-    public static void recordFewSeconds() throws IOException, AWTException, InterruptedException {
+    public static void recordFewSeconds() throws IOException, AWTException {
         Screencorder recorder = new Screencorder();
         BeBusyForSeconds busyWork;
 
         recorder.start();
 
-        busyWork = new BeBusyForSeconds(7);
-        await().until(busyWork::isItDoneYet);
+        busyWork = new BeBusyForSeconds(27);
+        await().until(busyWork::isDone);
 
         recorder.stop();
     }
 
-    public static void main(String[] args) throws IOException, AWTException, InterruptedException {
+    public static void main(String[] args) throws IOException, AWTException {
         recordFewSeconds();
     }
 }
