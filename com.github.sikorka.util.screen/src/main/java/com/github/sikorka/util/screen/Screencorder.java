@@ -65,7 +65,7 @@ public class Screencorder {
 
         recorder.start();
 
-        busyWork = new BeBusyForSeconds(27);
+        busyWork = new BeBusyForSeconds(7);
         await().until(busyWork::isDone);
 
         recorder.stop();

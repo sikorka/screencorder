@@ -5,7 +5,7 @@ Does not run from Maven yet :/
 Run
 ---
 
-Run with java 17 or 20. 
+Run with Java 17 or 20. 
 
 1. In IntelliJ run the main method in class `Screencorder`. 
 
