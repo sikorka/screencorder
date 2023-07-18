@@ -59,17 +59,19 @@ public class Screencorder {
         screenRecorder.stop();
     }
 
-    public static void recordFewSeconds() throws IOException, AWTException {
+    public static void recordFewSeconds() throws IOException, AWTException, InterruptedException {
         Screencorder recorder = new Screencorder();
-        PretendToBeBusyForFewSeconds busy = new PretendToBeBusyForFewSeconds();
+        BeBusyForSeconds busyWork;
 
         recorder.start();
-        busy.start();
-        await().until(busy::isItDoneYet);
+
+        busyWork = new BeBusyForSeconds(7);
+        await().until(busyWork::isItDoneYet);
+
         recorder.stop();
     }
 
-    public static void main(String[] args) throws IOException, AWTException {
+    public static void main(String[] args) throws IOException, AWTException, InterruptedException {
         recordFewSeconds();
     }
 }
