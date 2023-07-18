@@ -9,7 +9,7 @@ Run with java 17 or 20.
 
 1. In IntelliJ run the main method in class `Screencorder`. 
 
-    You need to first select it as a Java Module in Module Settings > Modules > choose the module > Dependencies > check all modules from `module-info.java`. 
+    You need to first select its module as a Java Module in Module Settings > Modules > choose the module > Dependencies > check all modules from `module-info.java`. 
 
     If something does not work remove the IntelliJ caches system directory https://www.jetbrains.com/help/idea/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html#system-directory. 
 
