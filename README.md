@@ -1,6 +1,4 @@
-This is a working example of how to record screen with newest [Monte Media Screenrecorder](https://github.com/wrandelshofer/MonteMedia/tree/main/org.monte.demo.screenrecorder). 
-
-Does not run from Maven yet :/ 
+This is a working example of how to record screen with newest [Monte Media Screenrecorder](https://github.com/wrandelshofer/MonteMedia/tree/main/org.monte.demo.screenrecorder).
 
 Was tested on Mac only. 
 
