@@ -15,19 +15,4 @@ Run with Java 17 or 20.
 
    The code is run, the movie is recorded. 
 
-2. Or run `main()` method using maven: 
-    
-       cd com.github.sikorka.util.screen
-       mvn compile exec:java
-
-    This gives compilation error: 
-
-          **************************************************************************************************************************************************************
-          * Required filename-based automodules detected: [awaitility-4.2.0.jar, log4j-1.2.17.jar]. Please don't publish this project to a public artifact repository! *
-          **************************************************************************************************************************************************************
-
-3. Using tests: 
-
-       mvn clean test
-
-   Same error like above. 
+2. Or run test `ScreenRecordingTest.java`. 

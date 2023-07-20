@@ -15,8 +15,8 @@ import static org.monte.media.av.FormatKeys.*;
 import static org.monte.media.av.codec.video.VideoFormatKeys.*;
 
 public class Screencorder {
-    ScreenRecorder screenRecorder;
-    String movieFolder;
+    private ScreenRecorder screenRecorder;
+    public final String movieFolder;
 
     public Screencorder() {
         if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
@@ -26,6 +26,10 @@ public class Screencorder {
         }
 
         Awaitility.setDefaultTimeout(Duration.ofMinutes(1));
+    }
+
+    public String getMovieFolder() {
+        return movieFolder;
     }
 
     public void start() throws IOException, AWTException {
