@@ -1,11 +1,10 @@
-package com.github.sikorka.util.test;
+package com.github.sikorka.util.screen.test;
 
-import com.github.sikorka.util.screen.BeBusyForSeconds;
 import com.github.sikorka.util.screen.Screencorder;
-import lombok.extern.log4j.Log4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -14,17 +13,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.awaitility.Awaitility.await;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-@Log4j
 class ScreenRecordingTest {
 
     @Test
     void recordingTest() throws Exception {
-        BeBusyForSeconds busyWork;
         Screencorder recorder = new Screencorder();
 
         String movieFolder = recorder.getMovieFolder();
@@ -33,24 +28,27 @@ class ScreenRecordingTest {
 
         LocalDateTime dateTime = LocalDateTime.now();
         String dateStartedString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String timeStartedString = dateTime.format(DateTimeFormatter.ofPattern("HH.mm.ss"));
+        String timeStartedString = dateTime.format(DateTimeFormatter.ofPattern("HH.mm."));
 
         when:
         recorder.start();
-        busyWork = new BeBusyForSeconds(7);
-        await().until(busyWork::isDone);
+        Thread.sleep(Duration.ofSeconds(7).toMillis());
         recorder.stop();
 
         then:
         newAviFiles = listFiles(movieFolder, "avi");
         newAviFiles.removeAll(initialAviFiles);
 
-        log.info("new avi files:\n" + Arrays.toString(new Set[]{newAviFiles}));
+//        log.info
+        System.out.println
+                ("new avi files:\n" + Arrays.toString(new Set[]{newAviFiles}));
 
         assertThat("an avi file was added", newAviFiles, is(not(emptyIterable())));
         assertThat("only 1 avi file was added", newAviFiles, hasSize(1));
 
-        log.info("date started: " + dateStartedString + ", time started: " + timeStartedString);
+//        log.info
+        System.out.println
+                ("date started: " + dateStartedString + ", time started: " + timeStartedString);
 
         String newAviFile = newAviFiles.iterator().next();
         assertThat("new avi file was created same day when recorder started", newAviFile, containsString(dateStartedString));
@@ -68,5 +66,4 @@ class ScreenRecordingTest {
                 .filter(name -> name.endsWith(extension))
                 .collect(Collectors.toSet());
     }
-
 }
