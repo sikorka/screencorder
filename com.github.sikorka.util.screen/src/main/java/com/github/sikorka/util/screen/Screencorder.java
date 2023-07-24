@@ -16,20 +16,7 @@ public class Screencorder {
     private ScreenRecorder screenRecorder;
     public final String movieFolder;
 
-    public Screencorder() {
-        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-            movieFolder = System.getProperty("user.home") + File.separator + "Videos";
-        } else {
-            movieFolder = System.getProperty("user.home") + File.separator + "Movies";
-        }
-    }
-
-    public String getMovieFolder() {
-        return movieFolder;
-    }
-
     public void start() throws IOException, AWTException {
-
         GraphicsConfiguration gc = GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getDefaultScreenDevice()
@@ -65,5 +52,22 @@ public class Screencorder {
         recorder.start();
         Thread.sleep(Duration.ofSeconds(7).toMillis());
         recorder.stop();
+    }
+
+    public Screencorder() {
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            movieFolder = System.getProperty("user.home") + File.separator + "Videos";
+        } else {
+            movieFolder = System.getProperty("user.home") + File.separator + "Movies";
+        }
+
+        File movieDir = new File(movieFolder);
+        if (!movieDir.exists()) {
+            movieDir.mkdirs();
+        }
+    }
+
+    public String getMovieFolder() {
+        return movieFolder;
     }
 }

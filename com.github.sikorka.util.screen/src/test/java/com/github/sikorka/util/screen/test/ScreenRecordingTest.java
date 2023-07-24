@@ -39,16 +39,12 @@ class ScreenRecordingTest {
         newAviFiles = listFiles(movieFolder, "avi");
         newAviFiles.removeAll(initialAviFiles);
 
-//        log.info
-        System.out.println
-                ("new avi files:\n" + Arrays.toString(new Set[]{newAviFiles}));
+        System.out.println("new avi files:\n" + Arrays.toString(new Set[]{newAviFiles}));
 
         assertThat("an avi file was added", newAviFiles, is(not(emptyIterable())));
         assertThat("only 1 avi file was added", newAviFiles, hasSize(1));
 
-//        log.info
-        System.out.println
-                ("date started: " + dateStartedString + ", time started: " + timeStartedString);
+        System.out.println("date started: " + dateStartedString + ", time started: " + timeStartedString);
 
         String newAviFile = newAviFiles.iterator().next();
         assertThat("new avi file was created same day when recorder started", newAviFile, containsString(dateStartedString));
